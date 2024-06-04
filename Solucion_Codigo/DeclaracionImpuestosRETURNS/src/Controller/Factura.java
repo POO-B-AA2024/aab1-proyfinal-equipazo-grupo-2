@@ -1,32 +1,37 @@
 package Controller;
 
-import java.util.Random;
-import java.io.*;
-import java.util.ArrayList;
-import Model.*;
+
+import java.io.Serializable;
+
 
 public class Factura implements Serializable {
-    String categoria;
-    double monto;
-    String direccion;
 
-    public Factura(String categoria, double monto, String direccion) {
+    private String categoria;
+    private double monto;
+
+    public Factura(String categoria, double monto) {
         this.categoria = categoria;
         this.monto = monto;
-        this.direccion = direccion;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
     }
     
+ 
 
-    public void escribirADat(){
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("facturas.dat"));
-            oos.writeObject(this);
-            oos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+   
+
 }
-
-
-

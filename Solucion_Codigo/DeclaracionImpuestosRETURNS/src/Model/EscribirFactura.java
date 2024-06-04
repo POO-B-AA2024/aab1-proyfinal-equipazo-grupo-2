@@ -1,36 +1,35 @@
 package Model;
 
 import Controller.Factura;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EscribirFactura {
+public class EscribirFactura implements Serializable{
 
     ObjectOutputStream writeFactura; // Clase para escribir objetos
 
-    FileOutputStream path; // Clase para obtener ruta de archivos
+    String path; // Clase para obtener ruta de archivos
 
     ArrayList<Factura> facturas;
 
-    public EscribirFactura(ObjectOutputStream writeEmpleado, FileOutputStream path, ArrayList<Factura> facturas) {
-        this.path = path;
+    public EscribirFactura(ArrayList<Factura> facturas) {
         this.facturas = facturas;
     }
 
-    public void escribirFacturasa() {
-
+      public void guardarFacturasEnArchivo(String nombreArchivo) {
         try {
-
-            this.writeFactura = new ObjectOutputStream(path);
-
-            for (Factura fac : facturas) {
-                writeFactura.writeObject(fac);
-            }
-        } catch (Exception e) {
+            FileOutputStream fileOut = new FileOutputStream(nombreArchivo);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this.facturas);
+            out.close();
+            fileOut.close();
+            System.out.println("Factura guardada en " + nombreArchivo);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
 
 }
